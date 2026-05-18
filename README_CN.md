@@ -246,7 +246,7 @@ config/count_anything_test_cloc.yaml
 
 中的 checkpoint 路径和 `paths.val_annotation_file`。
 
-## 仓库结构📑
+## 仓库结构
 
 ```text
 CountAnything/
