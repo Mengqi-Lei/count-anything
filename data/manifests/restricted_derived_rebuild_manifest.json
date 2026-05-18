@@ -1,0 +1,188 @@
+{
+  "format": "restricted_derived_rebuild_manifest_v1",
+  "purpose": "Rebuild permission-sensitive derived images for the public CLOC release.",
+  "notes": [
+    "This manifest is release-engineering metadata, not formal legal advice.",
+    "Run source-image conversions first with tools/convert_all_sources.py.",
+    "This rebuild manifest only handles derived images: high-resolution crops, ordinary cropped augmentation, and stitched/mosaic augmentation.",
+    "All rebuild outputs should be written under the release workspace.",
+    "Accepted approximate recipes are intentional and must not be deleted; they preserve count-level supervision except for explicitly documented small deltas.",
+    "Recipe paths are data-root-relative by default; --path-prefix remains available only for custom local overrides."
+  ],
+  "default_roots": {
+    "dataset_root": "{workspace}/images",
+    "objects365_root": "{workspace}/images/Objects365-2020"
+  },
+  "default_path_prefixes": [],
+  "steps": [
+    {
+      "id": "highres_objects365",
+      "group": "high_resolution",
+      "description": "Rebuild Objects365 high-resolution derived images.",
+      "script": "tools/recipes/rebuild_objects365_high_resolution.py",
+      "recipe": "tools/recipes/objects365_high_resolution_recipe.json",
+      "outputs_under_workspace": true,
+      "supports_overwrite": true,
+      "expected": {
+        "entries": 3561
+      },
+      "command": [
+        "{python}",
+        "{workspace}/tools/recipes/rebuild_objects365_high_resolution.py",
+        "generate",
+        "--recipe",
+        "{workspace}/tools/recipes/objects365_high_resolution_recipe.json",
+        "--objects365-root",
+        "{objects365_root}",
+        "--output-root",
+        "{workspace}/augmented/General",
+        "{overwrite_flag}"
+      ]
+    },
+    {
+      "id": "highres_nwpu_crowd",
+      "group": "high_resolution",
+      "description": "Rebuild NWPU-CROWD high-resolution derived images.",
+      "script": "tools/rebuilders/rebuild_high_resolution_from_recipe.py",
+      "recipe": "tools/recipes/high_resolution_recipe_nwpu_crowd_by_pixels.json",
+      "outputs_under_workspace": true,
+      "supports_overwrite": true,
+      "supports_verify": true,
+      "uses_path_prefix": true,
+      "expected": {
+        "entries": 8291,
+        "verified": 8291,
+        "failures": 0
+      },
+      "command": [
+        "{python}",
+        "{workspace}/tools/rebuilders/rebuild_high_resolution_from_recipe.py",
+        "--recipe",
+        "{workspace}/tools/recipes/high_resolution_recipe_nwpu_crowd_by_pixels.json",
+        "--dataset-root",
+        "{dataset_root}",
+        "--output-root",
+        "{workspace}/augmented",
+        "--report",
+        "{workspace}/metadata/high_resolution_rebuild_nwpu_crowd_release_report.json",
+        "{overwrite_flag}",
+        "{verify_flag}",
+        "{path_prefix_args}"
+      ]
+    },
+    {
+      "id": "cropped_exact_permission_sources",
+      "group": "cropped",
+      "description": "Rebuild exact cropped derived images for restricted/permission-sensitive sources.",
+      "script": "tools/rebuilders/rebuild_cropped_from_recipe.py",
+      "recipes": [
+        "tools/recipes/objects365_cropped_recipe_probe.json",
+        "tools/recipes/carpk_pucpr_cropped_recipe_probe.json",
+        "tools/recipes/cropped_recipe_remaining_permission_sources.json"
+      ],
+      "outputs_under_workspace": true,
+      "supports_overwrite": true,
+      "supports_verify": true,
+      "uses_path_prefix": true,
+      "expected": {
+        "entries": 17493,
+        "verified_if_run_with_verify": 17493
+      },
+      "command": [
+        "{python}",
+        "{workspace}/tools/rebuilders/rebuild_cropped_from_recipe.py",
+        "--workspace",
+        "{workspace}",
+        "--recipe",
+        "{workspace}/tools/recipes/objects365_cropped_recipe_probe.json",
+        "--recipe",
+        "{workspace}/tools/recipes/carpk_pucpr_cropped_recipe_probe.json",
+        "--recipe",
+        "{workspace}/tools/recipes/cropped_recipe_remaining_permission_sources.json",
+        "{overwrite_flag}",
+        "{verify_flag}",
+        "{path_prefix_args}"
+      ]
+    },
+    {
+      "id": "cropped_accepted_approx_11",
+      "group": "cropped",
+      "description": "Rebuild accepted approximate ordinary cropped images for the final 11 NWPU-CROWD_part records.",
+      "script": "tools/rebuilders/rebuild_cropped_from_recipe.py",
+      "recipe": "tools/recipes/cropped_recipe_remaining_permission_sources_approx_11.json",
+      "outputs_under_workspace": true,
+      "supports_overwrite": true,
+      "uses_path_prefix": true,
+      "accepted_approximate": true,
+      "expected": {
+        "entries": 11,
+        "point_count_delta_total": 4
+      },
+      "command": [
+        "{python}",
+        "{workspace}/tools/rebuilders/rebuild_cropped_from_recipe.py",
+        "--workspace",
+        "{workspace}",
+        "--recipe",
+        "{workspace}/tools/recipes/cropped_recipe_remaining_permission_sources_approx_11.json",
+        "{overwrite_flag}",
+        "{path_prefix_args}"
+      ]
+    },
+    {
+      "id": "stitched_strict_restricted",
+      "group": "stitched",
+      "description": "Rebuild strict geometry-inferred restricted stitched/mosaic images.",
+      "script": "tools/rebuilders/rebuild_stitched_from_recipe.py",
+      "recipe": "tools/recipes/stitched_reconstruction_recipe_restricted.json",
+      "outputs_under_workspace": true,
+      "supports_verify": true,
+      "uses_path_prefix": true,
+      "expected": {
+        "entries": 8825,
+        "point_diff_final_minus_source": {
+          "0": 8825
+        }
+      },
+      "command": [
+        "{python}",
+        "{workspace}/tools/rebuilders/rebuild_stitched_from_recipe.py",
+        "--recipe",
+        "{workspace}/tools/recipes/stitched_reconstruction_recipe_restricted.json",
+        "--output-root",
+        "{workspace}",
+        "{verify_flag}",
+        "{path_prefix_args}"
+      ]
+    },
+    {
+      "id": "stitched_accepted_approx_98",
+      "group": "stitched",
+      "description": "Rebuild accepted approximate restricted stitched/mosaic images that failed strict geometry inference.",
+      "script": "tools/rebuilders/rebuild_stitched_from_recipe.py",
+      "recipe": "tools/recipes/stitched_reconstruction_recipe_restricted_failed_98_approx.json",
+      "outputs_under_workspace": true,
+      "supports_verify": true,
+      "uses_path_prefix": true,
+      "accepted_approximate": true,
+      "expected": {
+        "entries": 98,
+        "point_diff_final_minus_source": {
+          "0": 97,
+          "1": 1
+        }
+      },
+      "command": [
+        "{python}",
+        "{workspace}/tools/rebuilders/rebuild_stitched_from_recipe.py",
+        "--recipe",
+        "{workspace}/tools/recipes/stitched_reconstruction_recipe_restricted_failed_98_approx.json",
+        "--output-root",
+        "{workspace}",
+        "{verify_flag}",
+        "{path_prefix_args}"
+      ]
+    }
+  ],
+  "supporting_reports": []
+}

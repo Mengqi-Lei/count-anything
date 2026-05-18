@@ -1,0 +1,462 @@
+paths:
+  train_annotation_file: data/annotations/train_split_expanded_by_class.json
+  val_annotation_file: data/annotations/val_split_expanded_by_class.json
+  experiment_log_dir: exp/count_anything_train_cloc
+  bpe_path: null
+  checkpoint_path: null
+  stage1_checkpoint_path: pretrained/sam3.pt
+countanything:
+  class_name: __auto__
+  prompt_text: __auto__
+  train_ratio: 0.8
+  split_seed: 123
+  train_transforms:
+  - _target_: sam3.train.transforms.basic_for_api.RandomSelectAPI
+    p: 0.5
+    transforms1:
+      _target_: sam3.train.transforms.basic_for_api.ComposeAPI
+      transforms:
+      - _target_: sam3.train.transforms.basic_for_api.RandomScaleKeepAspectAPI
+        scale_min: 0.5
+        scale_max: 2.0
+        min_short_side: 256
+        max_long_side: 1500
+        consistent_transform: false
+      - _target_: sam3.train.transforms.basic_for_api.CropOrPadToSizeAPI
+        size: 1008
+        consistent_transform: false
+        random_crop: true
+        random_pad: true
+      - _target_: sam3.train.transforms.basic_for_api.ToTensorAPI
+      - _target_: sam3.train.transforms.basic_for_api.NormalizeAPI
+        mean:
+        - 0.5
+        - 0.5
+        - 0.5
+        std:
+        - 0.5
+        - 0.5
+        - 0.5
+    transforms2:
+      _target_: sam3.train.transforms.basic_for_api.ComposeAPI
+      transforms:
+      - _target_: sam3.train.transforms.basic_for_api.RandomResizeAPI
+        sizes: 1008
+        max_size:
+          _target_: sam3.train.transforms.basic.get_random_resize_max_size
+          size: 1008
+        square: true
+        consistent_transform: false
+      - _target_: sam3.train.transforms.basic_for_api.PadToSizeAPI
+        size: 1008
+        consistent_transform: false
+      - _target_: sam3.train.transforms.basic_for_api.ToTensorAPI
+      - _target_: sam3.train.transforms.basic_for_api.NormalizeAPI
+        mean:
+        - 0.5
+        - 0.5
+        - 0.5
+        std:
+        - 0.5
+        - 0.5
+        - 0.5
+  val_transforms:
+  - _target_: sam3.train.transforms.basic_for_api.ComposeAPI
+    transforms:
+    - _target_: sam3.train.transforms.basic_for_api.RandomResizeAPI
+      sizes: 1008
+      max_size:
+        _target_: sam3.train.transforms.basic.get_random_resize_max_size
+        size: 1008
+      square: true
+      consistent_transform: false
+    - _target_: sam3.train.transforms.basic_for_api.PadToSizeAPI
+      size: 1008
+      consistent_transform: false
+    - _target_: sam3.train.transforms.basic_for_api.ToTensorAPI
+    - _target_: sam3.train.transforms.basic_for_api.NormalizeAPI
+      mean:
+      - 0.5
+      - 0.5
+      - 0.5
+      std:
+      - 0.5
+      - 0.5
+      - 0.5
+  loss:
+    _target_: count_anything.train.loss.count_anything_loss.CountAnythingLossWrapper
+    normalization: local
+    matcher: null
+    o2m_matcher:
+      _target_: sam3.train.matcher.BinaryOneToManyMatcher
+      alpha: 0.3
+      threshold: 0.4
+      topk: 4
+    o2m_weight: 0.0
+    use_o2m_matcher_on_o2m_aux: true
+    loss_fns_find:
+    - _target_: count_anything.train.loss.pdc_loss.PDCPointSetLoss
+      weight_dict:
+        loss_pdc_cls: 1.0
+        loss_pdc_point: 0.0002
+      eos_coef: 0.5
+      matcher_cost_class: 1.0
+      matcher_cost_point: 0.05
+    - _target_: count_anything.train.loss.rsc_loss.RSCBoxLoss
+      weight_dict:
+        loss_rsc_box: 5.0
+        loss_rsc_giou: 2.0
+    - _target_: count_anything.train.loss.rsc_loss.RSCPointLoss
+      weight_dict:
+        loss_rsc_point: 5.0
+    - _target_: count_anything.train.loss.rsc_loss.RSCQualityBCELoss
+      weak_loss: false
+      weight_dict:
+        loss_rsc_cls: 20.0
+        presence_loss: 0.0
+      pos_weight: 10.0
+      alpha: 0.25
+      gamma: 2
+      use_presence: false
+      pos_focal: false
+      pad_n_queries: 200
+      pad_scale_pos: 1.0
+    loss_fn_semantic_seg: null
+    scale_by_find_batch_size: true
+scratch:
+  enable_segmentation: true
+  enable_pdc_branch: true
+  training_stage: joint_counter_adaptation
+  use_presence_eval: false
+  scale_by_find_batch_size: true
+  resolution: 1008
+  train_norm_mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  train_norm_std:
+  - 0.5
+  - 0.5
+  - 0.5
+  val_norm_mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  val_norm_std:
+  - 0.5
+  - 0.5
+  - 0.5
+  train_batch_size: 18
+  val_batch_size: 40
+  num_train_workers: 4
+  num_val_workers: 2
+  max_data_epochs: 100
+  gather_pred_via_filesys: false
+  collate_fn_train:
+    _target_: sam3.train.data.collator.collate_fn_api
+    _partial_: true
+    repeats: 1
+    dict_key: all
+    with_seg_masks: false
+  collate_fn_val:
+    _target_: sam3.train.data.collator.collate_fn_api
+    _partial_: true
+    repeats: 1
+    dict_key: all
+    with_seg_masks: false
+trainer:
+  _target_: count_anything.train.trainer.Trainer
+  skip_saving_ckpts: false
+  empty_gpu_mem_cache_after_eval: true
+  skip_first_val: false
+  max_epochs: 30
+  accelerator: cuda
+  seed_value: 123
+  val_epoch_freq: 1
+  visualize_val_every_n_epochs: 5
+  mode: train
+  gradient_accumulation_steps: 1
+  training_stage: joint_counter_adaptation
+  train_foundation_encoder_lora: true
+  lora_branch_base_lr: 0.001
+  distributed:
+    backend: nccl
+    find_unused_parameters: true
+    gradient_as_bucket_view: true
+  loss:
+    all:
+      _target_: count_anything.train.loss.count_anything_loss.CountAnythingLossWrapper
+      normalization: local
+      matcher: null
+      o2m_matcher:
+        _target_: sam3.train.matcher.BinaryOneToManyMatcher
+        alpha: 0.3
+        threshold: 0.4
+        topk: 4
+      o2m_weight: 0.0
+      use_o2m_matcher_on_o2m_aux: true
+      loss_fns_find:
+      - _target_: count_anything.train.loss.pdc_loss.PDCPointSetLoss
+        weight_dict:
+          loss_pdc_cls: 1.0
+          loss_pdc_point: 0.0002
+        eos_coef: 0.5
+        matcher_cost_class: 1.0
+        matcher_cost_point: 0.05
+      - _target_: count_anything.train.loss.rsc_loss.RSCBoxLoss
+        weight_dict:
+          loss_rsc_box: 5.0
+          loss_rsc_giou: 2.0
+      - _target_: count_anything.train.loss.rsc_loss.RSCPointLoss
+        weight_dict:
+          loss_rsc_point: 5.0
+      - _target_: count_anything.train.loss.rsc_loss.RSCQualityBCELoss
+        weak_loss: false
+        weight_dict:
+          loss_rsc_cls: 20.0
+          presence_loss: 0.0
+        pos_weight: 10.0
+        alpha: 0.25
+        gamma: 2
+        use_presence: false
+        pos_focal: false
+        pad_n_queries: 200
+        pad_scale_pos: 1.0
+      loss_fn_semantic_seg: null
+      scale_by_find_batch_size: true
+    default:
+      _target_: sam3.train.loss.sam3_loss.DummyLoss
+  data:
+    train:
+      _target_: sam3.train.data.torch_dataset.TorchDataset
+      dataset:
+        _target_: sam3.train.data.sam3_image_dataset.Sam3ImageDataset
+        transforms:
+        - _target_: sam3.train.transforms.basic_for_api.RandomSelectAPI
+          p: 0.5
+          transforms1:
+            _target_: sam3.train.transforms.basic_for_api.ComposeAPI
+            transforms:
+            - _target_: sam3.train.transforms.basic_for_api.RandomScaleKeepAspectAPI
+              scale_min: 0.5
+              scale_max: 2.0
+              min_short_side: 256
+              max_long_side: 1500
+              consistent_transform: false
+            - _target_: sam3.train.transforms.basic_for_api.CropOrPadToSizeAPI
+              size: 1008
+              consistent_transform: false
+              random_crop: true
+              random_pad: true
+            - _target_: sam3.train.transforms.basic_for_api.ToTensorAPI
+            - _target_: sam3.train.transforms.basic_for_api.NormalizeAPI
+              mean:
+              - 0.5
+              - 0.5
+              - 0.5
+              std:
+              - 0.5
+              - 0.5
+              - 0.5
+          transforms2:
+            _target_: sam3.train.transforms.basic_for_api.ComposeAPI
+            transforms:
+            - _target_: sam3.train.transforms.basic_for_api.RandomResizeAPI
+              sizes: 1008
+              max_size:
+                _target_: sam3.train.transforms.basic.get_random_resize_max_size
+                size: 1008
+              square: true
+              consistent_transform: false
+            - _target_: sam3.train.transforms.basic_for_api.PadToSizeAPI
+              size: 1008
+              consistent_transform: false
+            - _target_: sam3.train.transforms.basic_for_api.ToTensorAPI
+            - _target_: sam3.train.transforms.basic_for_api.NormalizeAPI
+              mean:
+              - 0.5
+              - 0.5
+              - 0.5
+              std:
+              - 0.5
+              - 0.5
+              - 0.5
+        load_segmentation: false
+        max_ann_per_img: 500000
+        multiplier: 1
+        limit_ids: null
+        max_train_queries: 8
+        max_val_queries: 8
+        training: true
+        use_caching: false
+        img_folder: /
+        ann_file: data/annotations/train_split_expanded_by_class.json
+        coco_json_loader:
+          _target_: sam3.train.data.unified_json_loaders.UNIFIED_JSON_FROM_FILE
+          _partial_: true
+          split_file: null
+          split_name: null
+          train_ratio: 0.8
+          split_seed: 123
+          class_name: __auto__
+          prompt_text: __auto__
+      shuffle: true
+      batch_size: 18
+      num_workers: 4
+      pin_memory: true
+      drop_last: true
+      collate_fn:
+        _target_: sam3.train.data.collator.collate_fn_api
+        _partial_: true
+        repeats: 1
+        dict_key: all
+        with_seg_masks: false
+    val:
+      _target_: sam3.train.data.torch_dataset.TorchDataset
+      dataset:
+        _target_: sam3.train.data.sam3_image_dataset.Sam3ImageDataset
+        transforms:
+        - _target_: sam3.train.transforms.basic_for_api.ComposeAPI
+          transforms:
+          - _target_: sam3.train.transforms.basic_for_api.RandomResizeAPI
+            sizes: 1008
+            max_size:
+              _target_: sam3.train.transforms.basic.get_random_resize_max_size
+              size: 1008
+            square: true
+            consistent_transform: false
+          - _target_: sam3.train.transforms.basic_for_api.PadToSizeAPI
+            size: 1008
+            consistent_transform: false
+          - _target_: sam3.train.transforms.basic_for_api.ToTensorAPI
+          - _target_: sam3.train.transforms.basic_for_api.NormalizeAPI
+            mean:
+            - 0.5
+            - 0.5
+            - 0.5
+            std:
+            - 0.5
+            - 0.5
+            - 0.5
+        load_segmentation: false
+        max_ann_per_img: 500000
+        multiplier: 1
+        limit_ids: null
+        max_train_queries: 8
+        max_val_queries: 8
+        training: false
+        use_caching: false
+        img_folder: /
+        ann_file: data/annotations/val_split_expanded_by_class.json
+        coco_json_loader:
+          _target_: sam3.train.data.unified_json_loaders.UNIFIED_JSON_FROM_FILE
+          _partial_: true
+          split_file: null
+          split_name: null
+          train_ratio: 0.8
+          split_seed: 123
+          class_name: __auto__
+          prompt_text: __auto__
+      shuffle: false
+      batch_size: 40
+      num_workers: 2
+      pin_memory: true
+      drop_last: false
+      collate_fn:
+        _target_: sam3.train.data.collator.collate_fn_api
+        _partial_: true
+        repeats: 1
+        dict_key: all
+        with_seg_masks: false
+  model:
+    _target_: count_anything.model_builder.build_count_anything_model
+    bpe_path: null
+    device: cpus
+    eval_mode: false
+    checkpoint_path: null
+    load_from_HF: false
+    enable_segmentation: true
+    enable_pdc_branch: true
+    pdc_row: 1
+    pdc_line: 1
+    enable_encoder_cross_attn_lora: true
+    encoder_cross_attn_lora_r: 8
+    encoder_cross_attn_lora_alpha: 8
+    encoder_cross_attn_lora_dropout: 0.0
+  meters:
+    val:
+      all:
+        counting:
+          _target_: count_anything.eval.counting_meter.CountingMeter
+          gather_pred_via_filesys: false
+          deduplicate_by_image_id: false
+          expected_num_records: 9539
+          postprocessor:
+            _target_: count_anything.eval.postprocessor.CountAnythingPostProcessor
+            use_original_ids: false
+            pdc_score_threshold: 0.5
+            rsc_score_threshold: 0.5
+            rsc_iom_filter_enabled: true
+            rsc_iom_threshold: 0.7
+            use_presence: false
+            to_cpu: true
+          detail_records_path: exp/count_anything_train_cloc/logs/counting_detail_records.json
+  optim:
+    amp:
+      enabled: true
+      amp_dtype: bfloat16
+    optimizer:
+      _target_: torch.optim.AdamW
+      lr: 1.0e-05
+      betas:
+      - 0.9
+      - 0.999
+      eps: 1.0e-08
+      weight_decay: 0.0001
+    gradient_clip:
+      _target_: sam3.train.optim.optimizer.GradientClipper
+      max_norm: 0.1
+      norm_type: 2
+    param_group_modifiers: null
+    options:
+      lr:
+      - scheduler:
+          _target_: sam3.train.optim.schedulers.EpochCosineParamScheduler
+          base_lr: 1.0e-05
+          max_epochs: 30
+          start_epoch: 0
+          end_epoch: 30
+          min_lr_ratio: 0.1
+      weight_decay:
+      - scheduler:
+          _target_: fvcore.common.param_scheduler.ConstantParamScheduler
+          value: 0.0001
+  checkpoint:
+    save_dir: exp/count_anything_train_cloc/checkpoints
+    save_freq: 1
+    model_weight_initializer: null
+  logging:
+    tensorboard_writer:
+      _target_: sam3.train.utils.logger.make_tensorboard_logger
+      log_dir: exp/count_anything_train_cloc/tensorboard
+      flush_secs: 120
+      should_log: true
+    wandb_writer: null
+    log_dir: exp/count_anything_train_cloc/logs/
+    log_freq: 10
+  validate_before_train: true
+launcher:
+  num_nodes: 1
+  gpus_per_node: 8
+  experiment_log_dir: exp/count_anything_train_cloc
+  multiprocessing_context: forkserver
+submitit:
+  account: null
+  partition: null
+  qos: null
+  timeout_hour: 24
+  use_cluster: false
+  cpus_per_task: 4
+  port_range:
+  - 10000
+  - 65000

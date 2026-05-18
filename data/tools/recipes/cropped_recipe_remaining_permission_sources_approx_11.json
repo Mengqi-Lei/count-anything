@@ -1,0 +1,257 @@
+{
+  "format": "ordinary_cropped_recipe_accepted_approximate_v1",
+  "note": "Accepted by user: 11 NWPU-CROWD_part crops did not exact-match current source pixels; rebuild uses best deterministic crop candidates from cropped_remaining_permission_unresolved_11_report.json.",
+  "summary": {
+    "unresolved": 11,
+    "all_from_source": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+    "target_points_total": 857,
+    "raw_points_in_best_boxes_total": 853,
+    "point_count_delta_total": 4,
+    "note": "These 11 ordinary cropped samples did not exact-match current source pixels. Best deterministic crop candidates are recorded but were not used to overwrite images."
+  },
+  "entries": [
+    {
+      "record_key": "138219",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_1.png",
+      "crop_box": [
+        0,
+        0,
+        384,
+        384
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.676990650318287,
+      "raw_points_in_best_box": 72,
+      "target_points": 73,
+      "point_count_delta_target_minus_raw": 1
+    },
+    {
+      "record_key": "138220",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_2.png",
+      "crop_box": [
+        512,
+        0,
+        896,
+        384
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.86016845703125,
+      "raw_points_in_best_box": 89,
+      "target_points": 88,
+      "point_count_delta_target_minus_raw": -1
+    },
+    {
+      "record_key": "138221",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_3.png",
+      "crop_box": [
+        1024,
+        0,
+        1408,
+        384
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 2.8146950050636574,
+      "raw_points_in_best_box": 83,
+      "target_points": 82,
+      "point_count_delta_target_minus_raw": -1
+    },
+    {
+      "record_key": "138222",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_4.png",
+      "crop_box": [
+        256,
+        256,
+        640,
+        640
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.8764897099247686,
+      "raw_points_in_best_box": 92,
+      "target_points": 92,
+      "point_count_delta_target_minus_raw": 0
+    },
+    {
+      "record_key": "138223",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_5.png",
+      "crop_box": [
+        768,
+        256,
+        1152,
+        640
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.7869059244791665,
+      "raw_points_in_best_box": 88,
+      "target_points": 88,
+      "point_count_delta_target_minus_raw": 0
+    },
+    {
+      "record_key": "138224",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_6.png",
+      "crop_box": [
+        512,
+        512,
+        896,
+        896
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.7699946650752314,
+      "raw_points_in_best_box": 78,
+      "target_points": 81,
+      "point_count_delta_target_minus_raw": 3
+    },
+    {
+      "record_key": "138225",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_7.png",
+      "crop_box": [
+        1024,
+        512,
+        1408,
+        896
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.775768138744213,
+      "raw_points_in_best_box": 88,
+      "target_points": 88,
+      "point_count_delta_target_minus_raw": 0
+    },
+    {
+      "record_key": "138226",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_8.png",
+      "crop_box": [
+        1536,
+        512,
+        1920,
+        896
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.603160716869213,
+      "raw_points_in_best_box": 54,
+      "target_points": 54,
+      "point_count_delta_target_minus_raw": 0
+    },
+    {
+      "record_key": "138227",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_9.png",
+      "crop_box": [
+        0,
+        768,
+        384,
+        1152
+      ],
+      "crop_size": [
+        384,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.8253874602141202,
+      "raw_points_in_best_box": 80,
+      "target_points": 81,
+      "point_count_delta_target_minus_raw": 1
+    },
+    {
+      "record_key": "138228",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_10.png",
+      "crop_box": [
+        0,
+        510,
+        384,
+        766
+      ],
+      "crop_size": [
+        384,
+        256
+      ],
+      "accepted_approximate": true,
+      "best_mse": 2.583819354021991,
+      "raw_points_in_best_box": 66,
+      "target_points": 67,
+      "point_count_delta_target_minus_raw": 1
+    },
+    {
+      "record_key": "138229",
+      "split": "train",
+      "image_from": "NWPU-CROWD_part",
+      "source_image_path": "images/NWPU-CROWD/NWPU-CROWD/2401.jpg",
+      "output_image_path": "augmented/General/cropped/NWPU_CROWD_unified_35_11.png",
+      "crop_box": [
+        682,
+        768,
+        1194,
+        1152
+      ],
+      "crop_size": [
+        512,
+        384
+      ],
+      "accepted_approximate": true,
+      "best_mse": 3.6663750542534723,
+      "raw_points_in_best_box": 63,
+      "target_points": 63,
+      "point_count_delta_target_minus_raw": 0
+    }
+  ],
+  "failures": []
+}

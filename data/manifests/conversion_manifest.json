@@ -1,0 +1,236 @@
+{
+  "format": "cloc_conversion_manifest_v1",
+  "description": "Source-image conversion steps needed after users download and extract upstream datasets in data/images.",
+  "steps": [
+    {
+      "id": "brifiseg_3channels",
+      "dataset": "BriFiSeg",
+      "description": "Extract the official 3-channel BriFiSeg package and build unified RGB PNG images referenced by CLOC.",
+      "script": "tools/converters/convert_brifiseg_3channels_to_unified_images.py",
+      "supports_overwrite": true,
+      "required_inputs": [
+        "images/BriFiSeg/3channels.tar"
+      ],
+      "expected_outputs": [
+        "images/BriFiSeg/unified_images"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_brifiseg_3channels_to_unified_images.py",
+        "--workspace",
+        "{workspace}",
+        "--brifiseg-root",
+        "{workspace}/images/BriFiSeg",
+        "--report",
+        "{workspace}/metadata/convert_brifiseg_3channels_report.json",
+        "{overwrite_flag}"
+      ]
+    },
+    {
+      "id": "cellbindb_tif_to_png",
+      "dataset": "CellBinDB",
+      "description": "Convert CellBinDB TIFF images to RGB PNG files under images_png.",
+      "script": "tools/converters/convert_cellbindb_tif_to_images_png.py",
+      "supports_overwrite": true,
+      "required_inputs": [
+        "images/CellBinDB/CellBinDB"
+      ],
+      "expected_outputs": [
+        "images/CellBinDB/images_png"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_cellbindb_tif_to_images_png.py",
+        "--cellbindb-root",
+        "{workspace}/images/CellBinDB",
+        "--output-root",
+        "{workspace}/images/CellBinDB/images_png",
+        "--verify",
+        "--report",
+        "{workspace}/metadata/convert_cellbindb_tif_to_png_report.json",
+        "{overwrite_flag}"
+      ]
+    },
+    {
+      "id": "conic_npy_to_png",
+      "dataset": "CoNIC",
+      "description": "Convert CoNIC NPY image arrays to RGB PNG files under images_png.",
+      "script": "tools/converters/convert_conic_npy_to_images_png.py",
+      "supports_overwrite": true,
+      "required_inputs": [
+        "images/CoNIC/data/images.npy",
+        "images/CoNIC/data/patch_info.csv"
+      ],
+      "expected_outputs": [
+        "images/CoNIC/images_png"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_conic_npy_to_images_png.py",
+        "--conic-root",
+        "{workspace}/images/CoNIC",
+        "--output-root",
+        "{workspace}/images/CoNIC/images_png",
+        "--verify",
+        "--report",
+        "{workspace}/metadata/convert_conic_npy_to_png_report.json",
+        "{overwrite_flag}"
+      ]
+    },
+    {
+      "id": "deepbacs_tif_to_png",
+      "dataset": "DeepBacs",
+      "description": "Convert DeepBacs TIFF images referenced by annotations to PNGImages.",
+      "script": "tools/converters/convert_deepbacs_tif_to_pngimages.py",
+      "supports_overwrite": true,
+      "required_inputs": [
+        "images/DeepBacs",
+        "annotations/train_split.json",
+        "annotations/val_split.json",
+        "annotations/test_split.json"
+      ],
+      "expected_outputs": [
+        "images/DeepBacs/PNGImages"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_deepbacs_tif_to_pngimages.py",
+        "--deepbacs-root",
+        "{workspace}/images/DeepBacs",
+        "--annotations-root",
+        "{workspace}/annotations",
+        "--output-root",
+        "{workspace}/images/DeepBacs/PNGImages",
+        "--verify-output",
+        "--report",
+        "{workspace}/metadata/convert_deepbacs_tif_to_png_report.json",
+        "{overwrite_flag}"
+      ]
+    },
+    {
+      "id": "livecell_tif_to_png",
+      "dataset": "LIVECell",
+      "description": "Convert LIVECell TIFF images referenced by annotations to images_png.",
+      "script": "tools/converters/convert_livecell_tif_to_images_png.py",
+      "supports_overwrite": true,
+      "required_inputs": [
+        "images/LIVECELL/images",
+        "annotations/train_split.json",
+        "annotations/val_split.json",
+        "annotations/test_split.json"
+      ],
+      "expected_outputs": [
+        "images/LIVECELL/images_png"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_livecell_tif_to_images_png.py",
+        "--livecell-root",
+        "{workspace}/images/LIVECELL",
+        "--annotations-root",
+        "{workspace}/annotations",
+        "--output-root",
+        "{workspace}/images/LIVECELL/images_png",
+        "--verify",
+        "--report",
+        "{workspace}/metadata/convert_livecell_tif_to_png_report.json",
+        "{overwrite_flag}"
+      ]
+    },
+    {
+      "id": "monusac_tif_to_png",
+      "dataset": "MoNuSAC",
+      "description": "Convert MoNuSAC TIFF case images to png_images with the historical channel handling used by CLOC.",
+      "script": "tools/converters/convert_monusac_tif_to_png_images.py",
+      "supports_overwrite": false,
+      "required_inputs": [
+        "images/MoNuSAC/MoNuSAC_images_and_annotations"
+      ],
+      "expected_outputs": [
+        "images/MoNuSAC/png_images"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_monusac_tif_to_png_images.py",
+        "--monusac-root",
+        "{workspace}/images/MoNuSAC",
+        "--output-root",
+        "{workspace}/images/MoNuSAC/png_images",
+        "--report",
+        "{workspace}/metadata/convert_monusac_tif_to_png_report.json"
+      ]
+    },
+    {
+      "id": "monuseg_tif_to_png",
+      "dataset": "MoNuSeg",
+      "description": "Convert MoNuSeg TIFF images from official train/test packages to PNG folders used by CLOC.",
+      "script": "tools/converters/convert_monuseg_tif_to_png.py",
+      "supports_overwrite": false,
+      "required_inputs": [
+        "images/MoNuSeg/MoNuSeg 2018 Training Data",
+        "images/MoNuSeg/MoNuSegTestData"
+      ],
+      "expected_outputs": [
+        "images/MoNuSeg/kmms_training",
+        "images/MoNuSeg/kmms_test"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_monuseg_tif_to_png.py",
+        "--monuseg-root",
+        "{workspace}/images/MoNuSeg",
+        "--verify",
+        "--report",
+        "{workspace}/metadata/convert_monuseg_tif_to_png_report.json"
+      ]
+    },
+    {
+      "id": "nuinsseg_tissue_png",
+      "dataset": "NuInsSeg",
+      "description": "Normalize NuInsSeg tissue images to RGB PNG files while preserving organ-level folders.",
+      "script": "tools/converters/convert_nuinsseg_tissue_images_to_png.py",
+      "supports_overwrite": true,
+      "required_inputs": [
+        "images/NuInsSeg"
+      ],
+      "expected_outputs": [
+        "images/NuInsSeg"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_nuinsseg_tissue_images_to_png.py",
+        "--source-root",
+        "{workspace}/images/NuInsSeg",
+        "--output-root",
+        "{workspace}/images/NuInsSeg",
+        "--verify-existing",
+        "--report",
+        "{workspace}/metadata/convert_nuinsseg_tissue_png_report.json",
+        "{overwrite_flag}"
+      ]
+    },
+    {
+      "id": "soybean_pod_bmp_to_png",
+      "dataset": "Soybean Pod Images from UAVs",
+      "description": "Convert soybean pod BMP source images to dataset_png PNG images used by release annotations.",
+      "script": "tools/converters/convert_soybean_pod_bmp_to_png.py",
+      "supports_overwrite": true,
+      "required_inputs": [
+        "images/soybean_pod/dataset"
+      ],
+      "expected_outputs": [
+        "images/soybean_pod/dataset_png"
+      ],
+      "command": [
+        "{python}",
+        "{workspace}/tools/converters/convert_soybean_pod_bmp_to_png.py",
+        "--soybean-root",
+        "{workspace}/images/soybean_pod",
+        "--verify",
+        "--report",
+        "{workspace}/metadata/convert_soybean_pod_bmp_to_png_report.json",
+        "{overwrite_flag}"
+      ]
+    }
+  ]
+}
