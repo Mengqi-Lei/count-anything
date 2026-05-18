@@ -246,7 +246,7 @@ config/count_anything_test_cloc.yaml
 
 and update the checkpoint path and `paths.val_annotation_file`.
 
-## Repository Structure 📑
+## Repository Structure
 
 ```text
 CountAnything/
