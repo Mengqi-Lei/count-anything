@@ -73,6 +73,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report", type=Path, default=None)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Accepted for convert_all_sources compatibility; outputs are rewritten when not in dry-run mode.",
+    )
+    parser.add_argument(
         "--verify-existing",
         action="store_true",
         help="After conversion, compare output RGB pixels with source RGB pixels.",
@@ -131,6 +136,7 @@ def main() -> None:
         "expected_layout": "<root>/<organ>/tissue images/<image_name>.png",
         "supported_extensions": sorted(SUPPORTED_EXTS),
         "dry_run": bool(args.dry_run),
+        "overwrite": bool(args.overwrite),
         "verify_existing": bool(args.verify_existing),
         "total_source_images": len(records),
         "source_extension_counts": ext_counts,
