@@ -1,4 +1,4 @@
-# Count Anything: A Generalist Model for Text-Guided Object Counting Across Domains
+# Count Anything
 
 <p align="right">
   <a href="README.md">English</a> |
