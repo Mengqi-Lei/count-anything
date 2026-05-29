@@ -6,7 +6,9 @@
 
 <p align="center">
   <a href="https://huggingface.co/MengqiLei/count-anything"><img src="https://img.shields.io/badge/Hugging%20Face-Model-yellow" alt="Hugging Face Model"></a>
+  <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo"><img src="https://img.shields.io/badge/Hugging%20Face-Demo-orange" alt="Hugging Face Demo"></a>
   <a href="https://arxiv.org/abs/xxxx.xxxxx"><img src="https://img.shields.io/badge/arXiv-Paper-b31b1b" alt="arXiv Paper"></a>
+  <a href="assets/paper/Count-Anything.pdf"><img src="https://img.shields.io/badge/Paper-PDF-blue" alt="Paper PDF"></a>
 </p>
 
 <p align="center">
