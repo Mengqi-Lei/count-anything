@@ -1,8 +1,21 @@
-# Count Anything
+<h1 align="center">Count Anything</h1>
 
-<p align="right">
+<p align="center">
+  <strong>面向跨域文本引导目标计数的通用模型，以实例点集输出可解释计数结果</strong>
+</p>
+
+<p align="center">
+  <a href="https://huggingface.co/MengqiLei/count-anything"><img src="https://img.shields.io/badge/Hugging%20Face-Model-yellow" alt="Hugging Face Model"></a>
+  <a href="https://arxiv.org/abs/xxxx.xxxxx"><img src="https://img.shields.io/badge/arXiv-Paper-b31b1b" alt="arXiv Paper"></a>
+</p>
+
+<p align="center">
   <a href="README.md">English</a> |
   <a href="README_CN.md">中文</a>
+</p>
+
+<p align="center">
+  <img src="assets/readme/count_anything_frame.jpg" alt="Count Anything 框架图" width="100%">
 </p>
 
 ## Overview 概览
