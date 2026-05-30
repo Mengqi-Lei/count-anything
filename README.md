@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/readme/count_anything_frame.jpg" alt="Count Anything framework" width="100%">
+  <img src="assets/readme/count_anything_poster.jpg" alt="Count Anything poster" width="100%">
 </p>
 
 ## Overview
