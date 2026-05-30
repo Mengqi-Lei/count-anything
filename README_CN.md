@@ -20,6 +20,10 @@
   <img src="assets/readme/count_anything_poster.jpg" alt="Count Anything 海报图" width="100%">
 </p>
 
+<p align="center">
+  <strong>Play with the demo: <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo">🔗Huggingface Demo</a></strong>
+</p>
+
 ## Overview 概览
 
 本仓库介绍 **Count Anything**，这是一种用于跨域文本引导目标计数的通用模型。给定一张图像和一条自然语言查询，Count Anything 会返回一个实例级的目标点集合，其基数即为计数结果。这一表述方式将类别条件计数与具有可解释性的空间定位统一起来。

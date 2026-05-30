@@ -20,6 +20,10 @@
   <img src="assets/readme/count_anything_poster.jpg" alt="Count Anything poster" width="100%">
 </p>
 
+<p align="center">
+  <strong>Play with the demo: <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo">🔗Huggingface Demo</a></strong>
+</p>
+
 ## Overview
 
 This repository introduces **Count Anything**, a generalist model for text-guided object counting across domains. Given an image and a natural-language query, Count Anything returns an instance-grounded set of target points whose cardinality gives the count. This formulation unifies category-conditioned counting with interpretable spatial localization.
