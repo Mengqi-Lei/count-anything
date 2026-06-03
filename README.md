@@ -9,6 +9,7 @@
   <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo"><img src="https://img.shields.io/badge/Hugging%20Face-Demo-orange" alt="Hugging Face Demo"></a>
   <a href="https://arxiv.org/abs/2605.30846"><img src="https://img.shields.io/badge/arXiv-2605.30846-b31b1b" alt="arXiv Paper"></a>
   <a href="assets/paper/Count-Anything.pdf"><img src="https://img.shields.io/badge/Paper-PDF-blue" alt="Paper PDF"></a>
+  <a href="mailto:mengqi-lei@163.com"><img src="https://img.shields.io/badge/Email-mengqi--lei%40163.com-green" alt="Email"></a>
 </p>
 
 <p align="center">
