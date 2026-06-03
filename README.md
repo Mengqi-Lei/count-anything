@@ -53,6 +53,14 @@ Count Anything is trained and evaluated on CLOC, which contains about 220K image
 
 ![Main CLOC comparison table from the paper](assets/readme/main_results_cloc_table.png)
 
+## Visualizations
+
+<p align="center">
+  <a href="assets/readme/count_anything_visualizations.jpg">
+    <img src="assets/readme/count_anything_visualizations.jpg" alt="Count Anything qualitative visualizations" width="100%">
+  </a>
+</p>
+
 ## Quick Start
 
 ### 1. Environment Setup
