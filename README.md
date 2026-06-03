@@ -51,7 +51,7 @@ Count Anything is trained and evaluated on CLOC, which contains about 220K image
 
 ## Main Results
 
-![Main CLOC comparison table from the paper](assets/readme/main_results_cloc_table.png)
+![Main CLOC comparison table from the paper](assets/readme/main_results_cloc_table.jpg)
 
 ## Visualizations
 
