@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <strong>Play with the demo: <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo">🔗Huggingface Demo</a></strong>
+  <strong>✨Play with the demo: <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo">🔗Huggingface Demo</a></strong>
 </p>
 
 ## Overview 概览
