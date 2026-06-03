@@ -100,6 +100,8 @@ sam3.pt
 
 本仓库默认使用 CLOC 数据集。数据集准备文档会说明如何下载 CLOC 标注包、可直接发布的增强图片包，以及各个源数据集的原始图片。请先按照数据集准备文档完成数据组织，再运行训练或评估。
 
+💡 **数据可用性声明。** 由于 CLOC 使用的部分原始数据集受 license 和再分发限制约束，我们无法直接公开完整的 CLOC 图片数据集，只能引用这些数据源。我们发布了由重新标注流程生成的 CLOC annotation 文件，以及可再分发的部分增强图片。若要复现完整的 CLOC 数据集，请按照 [data/README.md](data/README.md) 下载原始图片，并完成预处理、重建和路径审计步骤。**此外，我们也可以提供已经处理好的、开箱即用的完整 CLOC 数据集；如有需要，请通过邮件联系我们进行申请。**
+
 默认配置期望训练、验证和测试标注位于：
 
 ```text
@@ -121,11 +123,7 @@ data/
   README.md           # English dataset preparation guide
 ```
 
-完整的数据集构建、原始数据集下载、格式转换、增强图片重建和路径审计流程，请参考：
-
-```text
-data/README.md
-```
+完整的数据集构建、原始数据集下载、格式转换、增强图片重建和路径审计流程，请参考 [data/README.md](data/README.md)。
 
 如果你的数据目录不同，请修改：
 
@@ -293,3 +291,16 @@ CountAnything/
 ## 问题与支持
 
 如果您在数据集准备、模型权重、训练、验证或测试过程中遇到任何困难，欢迎及时与我们联系，我们会尽力提供帮助。
+
+## 引用
+
+如果 Count Anything 对您的研究有帮助，欢迎引用：
+
+```bibtex
+@article{lei2026count_anything,
+  title={Count Anything},
+  author={Lei, Mengqi and Cheng, Shuokun and Bao, Wei and Du, Shaoyi and Yong, Jun-Hai and Li, Siqi and Gao, Yue},
+  journal={arXiv preprint arXiv:2605.30846},
+  year={2026}
+}
+```

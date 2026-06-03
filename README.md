@@ -100,6 +100,8 @@ By default, the training configuration initializes the model from `pretrained/sa
 
 This repository uses the CLOC dataset by default. The dataset preparation guide explains how to download the CLOC annotation archive, the distributable augmented-image archive, and the raw images of each source dataset. Please prepare the dataset following that guide before running training or evaluation.
 
+💡 **Dataset availability note.** Because some source datasets used by CLOC are subject to license and redistribution restrictions, we cannot directly release the complete CLOC image set and can only reference those data sources. We release the CLOC annotation files produced by our re-annotation process and the subset of augmented images that can be redistributed. To reproduce the complete CLOC dataset, please download the original source images and follow the preprocessing, rebuilding, and audit steps in [data/README.md](data/README.md). **We can also provide a processed, ready-to-use copy of the complete CLOC dataset upon request; please contact us by email for access.**
+
 The default configurations expect the train, validation, and test annotations at:
 
 ```text
@@ -121,11 +123,7 @@ data/
   README.md           # English dataset preparation guide
 ```
 
-For the full dataset construction workflow, including raw dataset downloads, format conversion, augmented-image rebuilding, and path auditing, please refer to:
-
-```text
-data/README.md
-```
+For the full dataset construction workflow, including raw dataset downloads, format conversion, augmented-image rebuilding, and path auditing, please refer to [data/README.md](data/README.md).
 
 If your dataset paths differ from the default layout, please edit:
 
@@ -293,3 +291,16 @@ CountAnything/
 ## Questions and Support
 
 If you encounter any difficulty with dataset preparation, model weights, training, validation, or evaluation, please feel free to contact us and we will do our best to help.
+
+## Citation
+
+If you find Count Anything useful in your research, please consider citing:
+
+```bibtex
+@article{lei2026count_anything,
+  title={Count Anything},
+  author={Lei, Mengqi and Cheng, Shuokun and Bao, Wei and Du, Shaoyi and Yong, Jun-Hai and Li, Siqi and Gao, Yue},
+  journal={arXiv preprint arXiv:2605.30846},
+  year={2026}
+}
+```
