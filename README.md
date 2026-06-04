@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+  <a href="https://mengqi-lei.github.io/count-anything-projectpage/"><img src="https://img.shields.io/badge/Project-Page-purple" alt="Project Page"></a>
   <a href="https://huggingface.co/MengqiLei/count-anything"><img src="https://img.shields.io/badge/Hugging%20Face-Model-yellow" alt="Hugging Face Model"></a>
   <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo"><img src="https://img.shields.io/badge/Hugging%20Face-Demo-orange" alt="Hugging Face Demo"></a>
   <a href="https://arxiv.org/abs/2605.30846"><img src="https://img.shields.io/badge/arXiv-2605.30846-b31b1b" alt="arXiv Paper"></a>
