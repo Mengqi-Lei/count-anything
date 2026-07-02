@@ -26,6 +26,11 @@
   <strong>✨Play with the demo: <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo">🔗Huggingface Demo</a></strong>
 </p>
 
+## News
+
+- **2026-07-02:** 🔥 我们发布了 CLOC-v1.1 标注更新。具体来说，我们对CLOC Test集标注进行了更细致的人工审查，删除或重新标注了少量具有明显噪声的样本，以提供更准确的计数性能评估。
+- **2026-05-29:** 📄 论文已发布于 arXiv：[Count Anything](https://arxiv.org/abs/2605.30846)。
+
 ## Overview 概览
 
 本仓库介绍 **Count Anything**，这是一种用于跨域文本引导目标计数的通用模型。给定一张图像和一条自然语言查询，Count Anything 会返回一个实例级的目标点集合，其基数即为计数结果。这一表述方式将类别条件计数与具有可解释性的空间定位统一起来。
@@ -109,6 +114,8 @@ sam3.pt
 ### 3. 数据准备
 
 本仓库默认使用 CLOC 数据集。数据集准备文档会说明如何下载 CLOC 标注包、可直接发布的增强图片包，以及各个源数据集的原始图片。请先按照数据集准备文档完成数据组织，再运行训练或评估。
+
+🔥 **CLOC-v1.1 标注更新。** 我们额外提供 `cloc_annotations_v1.1.zip`，对部分 CLOC 标注进行了人工复查；对于人工确认存在漏标、错标或明显标注噪声的标注记录，我们进行了移除或重新标注，以减少标注噪声。该标注包已添加到 [data/README.md](data/README.md) 中原有的 Google Drive 和百度网盘下载链接中，可通过同一组链接下载。具体见 [data/README.md](data/README.md)。
 
 💡 **数据可用性声明。** 由于 CLOC 使用的部分原始数据集受 license 和再分发限制约束，我们无法直接公开完整的 CLOC 图片数据集，只能引用这些数据源。我们发布了由重新标注流程生成的 CLOC annotation 文件，以及可再分发的部分增强图片。若要复现完整的 CLOC 数据集，请按照 [data/README.md](data/README.md) 下载原始图片，并完成预处理、重建和路径审计步骤。**此外，我们也可以提供已经处理好的、开箱即用的完整 CLOC 数据集；如有需要，请通过邮件联系我们进行申请。**
 
@@ -301,6 +308,12 @@ CountAnything/
 ## 问题与支持
 
 如果您在数据集准备、模型权重、训练、验证或测试过程中遇到任何困难，欢迎及时与我们联系，我们会尽力提供帮助。
+
+## 致谢
+
+- 本项目使用了 [SAM3](https://github.com/facebookresearch/sam3) 的代码。我们衷心感谢 SAM3 作者和贡献者开源相关工作。
+
+- 我们也感谢 [jerpelhan](https://github.com/jerpelhan) 帮助我们发现 CLOC test 集中的部分标注噪声。这些反馈对我们发布 CLOC-v1.1 起到了重要帮助。
 
 ## 引用
 

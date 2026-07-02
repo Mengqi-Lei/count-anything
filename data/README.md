@@ -7,18 +7,29 @@
 
 This document explains how to prepare the complete CLOC dataset. We provide all CLOC annotation files and a subset of directly distributable augmented images. Users need to prepare the raw images of each source dataset according to this document, then run the unified conversion, rebuild, and audit scripts. After these steps, the resulting workspace can be fully indexed by the CLOC dataset annotations.
 
+## 🔥 CLOC-v1.1 Released
+
+We have released the CLOC-v1.1 annotation update. The primary dataset release remains CLOC. In CLOC-v1.1, we manually rechecked part of the CLOC annotations. For annotation records manually confirmed to contain missing labels, incorrect labels, or obvious annotation noise, we removed the affected records or relabeled them to reduce annotation noise. The updated annotation archive is `cloc_annotations_v1.1.zip`; it has been added to the same Google Drive and Baidu Netdisk folders listed below, so it can be downloaded from the same links. To use CLOC-v1.1 annotations, download `cloc_annotations_v1.1.zip` in place of `cloc_annotations.zip`; the augmented-image archive and source-image preparation workflow remain unchanged.
+
+In addition, we re-evaluated all the models on CLOC-v1.1. There are slight changes in the results, but the overall ranking is almost the same as that of the CLOC-v1 version. The specific results are shown in the following table.
+
+<p align="center">
+  <img src="../assets/readme/cloc_v1_1_main_results_table.png" alt="CLOC-v1.1 comparison table" width="100%">
+</p>
+
 ## CLOC Annotation and Augmented-Image Archives
 
 First, download the CLOC annotation archive and the directly distributable augmented-image archive from the following links:
 
 - [Google Drive](https://drive.google.com/drive/folders/1jt_CLqfQRVV9Vzll2Aqlf1tQNbWbezSe?usp=sharing)
-- [Baidu Netdisk](https://pan.baidu.com/s/1cCFxHLcU6o1EFGjtxZgseg?pwd=cloc)
+- [Baidu Netdisk](https://pan.baidu.com/s/1EbagQMvXBx7NgTLI84VBAQ?pwd=cloc)
 
-Download `cloc_annotations.zip` and `cloc_augmented.zip`, then place both archives under the `data/` root:
+Download `cloc_annotations.zip` (or the updated `cloc_annotations_v1.1.zip`) and `cloc_augmented.zip`, then place both archives under the `data/` root:
 
 ```text
 data/
   cloc_annotations.zip
+  # or cloc_annotations_v1.1.zip
   cloc_augmented.zip
 ```
 
@@ -26,7 +37,13 @@ Then extract them from the `data/` root:
 
 ```bash
 cd /path/to/data
-unzip -q cloc_annotations.zip
+
+# Use the updated v1.1 annotation archive.
+unzip -q cloc_annotations_v1.1.zip
+
+# To use the original annotation archive instead, run:
+# unzip -q cloc_annotations.zip
+
 unzip -q cloc_augmented.zip
 ```
 

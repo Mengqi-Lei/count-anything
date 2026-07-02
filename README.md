@@ -26,6 +26,11 @@
   <strong>✨Play with the demo: <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo">🔗Huggingface Demo</a></strong>
 </p>
 
+## News
+
+- **2026-07-02:** 🔥 CLOC-v1.1 is released. Specifically, we conducted a more meticulous manual review of the CLOC Test set annotations, removing or re-annotating a small number of samples with obvious noise to provide a more accurate evaluation of counting performance.
+- **2026-05-29:** 📄 Our paper is available on arXiv: [Count Anything](https://arxiv.org/abs/2605.30846).
+
 ## Overview
 
 This repository introduces **Count Anything**, a generalist model for text-guided object counting across domains. Given an image and a natural-language query, Count Anything returns an instance-grounded set of target points whose cardinality gives the count. This formulation unifies category-conditioned counting with interpretable spatial localization.
@@ -109,6 +114,8 @@ By default, the training configuration initializes the model from `pretrained/sa
 ### 3. Data Preparation
 
 This repository uses the CLOC dataset by default. The dataset preparation guide explains how to download the CLOC annotation archive, the distributable augmented-image archive, and the raw images of each source dataset. Please prepare the dataset following that guide before running training or evaluation.
+
+🔥 **CLOC-v1.1 annotation update.** We additionally provide `cloc_annotations_v1.1.zip`, an updated annotation package with part of the CLOC annotations manually rechecked. Records confirmed to contain missing labels, incorrect labels, or obvious annotation noise were removed or relabeled. The package is available from the same Google Drive and Baidu Netdisk links in [data/README.md](data/README.md). More details are provided in [data/README.md](data/README.md).
 
 💡 **Dataset availability note.** Because some source datasets used by CLOC are subject to license and redistribution restrictions, we cannot directly release the complete CLOC image set and can only reference those data sources. We release the CLOC annotation files produced by our re-annotation process and the subset of augmented images that can be redistributed. To reproduce the complete CLOC dataset, please download the original source images and follow the preprocessing, rebuilding, and audit steps in [data/README.md](data/README.md). **We can also provide a processed, ready-to-use copy of the complete CLOC dataset upon request; please contact us by email for access.**
 
@@ -301,6 +308,12 @@ CountAnything/
 ## Questions and Support
 
 If you encounter any difficulty with dataset preparation, model weights, training, validation, or evaluation, please feel free to contact us and we will do our best to help.
+
+## Acknowledgement
+
+- This project builds upon the codebase of [SAM3](https://github.com/facebookresearch/sam3). We sincerely thank the SAM3 authors and contributors for releasing their work.
+
+- We also thank [jerpelhan](https://github.com/jerpelhan) for helping us identify annotation noise in the CLOC test set. This feedback was highly valuable for the release of CLOC-v1.1.
 
 ## Citation
 

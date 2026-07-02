@@ -7,18 +7,29 @@
 
 本文说明如何准备完整的 CLOC 数据集。我们提供 CLOC 的全部标注文件，以及一部分可以直接发布的增强图片；用户需要按照本文准备各个源数据集的原始图片，再运行统一的转换、重建和审计脚本。完成这些步骤后，即可得到能够被 CLOC 数据集标注完整索引的数据集工作区。
 
+## 🔥 CLOC-v1.1 发布
+
+我们发布了 CLOC-v1.1 标注更新。主数据集仍为 CLOC。在 CLOC-v1.1 中，我们对部分 CLOC 标注进行了人工复查；对于人工确认存在漏标、错标或明显标注噪声的标注记录，我们进行了移除或重新标注，以减少标注噪声。更新后的标注包为 `cloc_annotations_v1.1.zip`，已添加到下方原有的 Google Drive 和百度网盘下载链接中，可通过同一组链接下载。如需使用 CLOC-v1.1 标注，请下载 `cloc_annotations_v1.1.zip` 替代 `cloc_annotations.zip`；增强图片包和源图片准备流程保持不变。
+
+另外，我们在CLOC-v1.1上重新评估了所有的模型，结果有轻微改变，但整体排名和CLOC-v1版本的几乎一致。具体结果如下表所示。
+
+<p align="center">
+  <img src="../assets/readme/cloc_v1_1_main_results_table.png" alt="CLOC-v1.1 对比表" width="100%">
+</p>
+
 ## CLOC 标注和增强图片包
 
 请先从以下链接下载 CLOC 标注包和可直接发布的增强图片包：
 
 - [Google Drive](https://drive.google.com/drive/folders/1jt_CLqfQRVV9Vzll2Aqlf1tQNbWbezSe?usp=sharing)
-- [百度网盘](https://pan.baidu.com/s/1cCFxHLcU6o1EFGjtxZgseg?pwd=cloc)
+- [百度网盘](https://pan.baidu.com/s/1EbagQMvXBx7NgTLI84VBAQ?pwd=cloc)
 
-下载 `cloc_annotations.zip` 和 `cloc_augmented.zip` 后，将两个压缩包放到 `data/` 根目录下：
+下载 `cloc_annotations.zip`（或更新后的 `cloc_annotations_v1.1.zip`）和 `cloc_augmented.zip` 后，将两个压缩包放到 `data/` 根目录下：
 
 ```text
 data/
   cloc_annotations.zip
+  # 或 cloc_annotations_v1.1.zip
   cloc_augmented.zip
 ```
 
@@ -26,7 +37,13 @@ data/
 
 ```bash
 cd /path/to/data
-unzip -q cloc_annotations.zip
+
+# 使用更新后的 v1.1 标注包
+unzip -q cloc_annotations_v1.1.zip
+
+# 如需使用原始标注包，可改为：
+# unzip -q cloc_annotations.zip
+
 unzip -q cloc_augmented.zip
 ```
 
