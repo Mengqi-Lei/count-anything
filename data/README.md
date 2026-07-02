@@ -7,6 +7,8 @@
 
 This document explains how to prepare the complete CLOC dataset. We provide all CLOC annotation files and a subset of directly distributable augmented images. Users need to prepare the raw images of each source dataset according to this document, then run the unified conversion, rebuild, and audit scripts. After these steps, the resulting workspace can be fully indexed by the CLOC dataset annotations.
 
+<a id="cloc-v11-released"></a>
+
 ## 🔥 CLOC-v1.1 Released
 
 We have released the CLOC-v1.1 annotation update. The primary dataset release remains CLOC. In CLOC-v1.1, we manually rechecked part of the CLOC annotations. For annotation records manually confirmed to contain missing labels, incorrect labels, or obvious annotation noise, we removed the affected records or relabeled them to reduce annotation noise. The updated annotation archive is `cloc_annotations_v1.1.zip`; it has been added to the same Google Drive and Baidu Netdisk folders listed below, so it can be downloaded from the same links. To use CLOC-v1.1 annotations, download `cloc_annotations_v1.1.zip` in place of `cloc_annotations.zip`; the augmented-image archive and source-image preparation workflow remain unchanged.

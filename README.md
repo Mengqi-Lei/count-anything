@@ -28,7 +28,7 @@
 
 ## News
 
-- **2026-07-02:** 🔥 CLOC-v1.1 is released. Specifically, we conducted a more meticulous manual review of the CLOC Test set annotations, removing or re-annotating a small number of samples with obvious noise to provide a more accurate evaluation of counting performance.
+- **2026-07-02:** 🔥 [CLOC-v1.1](data/README.md#cloc-v11-released) is released. Specifically, we conducted a more meticulous manual review of the CLOC Test set annotations, removing or re-annotating a small number of samples with obvious noise to provide a more accurate evaluation of counting performance.
 - **2026-05-29:** 📄 Our paper is available on arXiv: [Count Anything](https://arxiv.org/abs/2605.30846).
 
 ## Overview
