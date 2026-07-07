@@ -280,6 +280,28 @@ config/count_anything_test_cloc.yaml
 
 中的 checkpoint 路径和 `paths.val_annotation_file`。
 
+
+### 7. 单图推理
+
+单图推理可以使用：
+
+```python
+from count_anything import CountAnything
+
+model = CountAnything("checkpoints/count_anything.pt")
+results = model("path/to/image.jpg", "text_query")  # 例如 "airplanes"
+print(results[0].count)
+results[0].save()
+```
+
+默认情况下，可视化图片和预测 JSON 会保存到：
+
+```text
+exp/count_anything_inference/<image>__<query>__<timestamp>/
+```
+
+如果需要额外绘制中间 RSC boxes 以便调试，可以使用 `results[0].save(show_boxes=True)`。
+
 ## 仓库结构
 
 ```text

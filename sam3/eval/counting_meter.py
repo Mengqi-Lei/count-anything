@@ -17,6 +17,38 @@ def _threshold_label_to_key(label: str) -> str:
     return label.replace(".", "_")
 
 
+def _jsonable_prediction_value(value):
+    if hasattr(value, "detach"):
+        value = value.detach().cpu()
+        if value.ndim == 0:
+            return value.item()
+        return value.tolist()
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    if isinstance(value, (list, tuple)):
+        return [_jsonable_prediction_value(item) for item in value]
+    return value
+
+
+def _prediction_geometry_record(pred: Dict) -> Dict:
+    geometry_keys = {
+        "pred_points": "pred_count_points",
+        "pred_scores": "pred_count_scores",
+        "pred_sources": "pred_count_sources",
+        "rsc_boxes": "kept_rsc_boxes",
+        "rsc_points": "kept_rsc_points",
+        "rsc_scores": "kept_rsc_scores",
+        "pdc_points": "kept_pdc_points",
+        "pdc_scores": "kept_pdc_scores",
+        "removed_pdc_points": "removed_pdc_points",
+    }
+    record = {}
+    for output_key, pred_key in geometry_keys.items():
+        if pred_key in pred:
+            record[output_key] = _jsonable_prediction_value(pred[pred_key])
+    return record
+
+
 class CountingMeter:
     def __init__(
         self,
@@ -93,6 +125,7 @@ class CountingMeter:
                     "pdc_score_median": float(pred["pdc_score_median"]),
                     "pdc_top60_scores": list(pred["pdc_top60_scores"]),
                 }
+                record.update(_prediction_geometry_record(pred))
                 if self.deduplicate_by_image_id:
                     self.records[int(image_id)] = record
                 else:
