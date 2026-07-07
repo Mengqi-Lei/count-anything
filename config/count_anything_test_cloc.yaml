@@ -400,7 +400,7 @@ trainer:
             rsc_iom_threshold: 0.5
             use_presence: false
             to_cpu: true
-          detail_records_path: exp/count_anything_test_cloc/logs/counting_detail_records.json
+          detail_records_path: null
   optim:
     amp:
       enabled: true
@@ -444,16 +444,23 @@ trainer:
       _target_: sam3.train.utils.logger.make_tensorboard_logger
       log_dir: exp/count_anything_test_cloc/tensorboard
       flush_secs: 120
-      should_log: true
+      should_log: false
     wandb_writer: null
     log_dir: exp/count_anything_test_cloc/logs
     log_freq: 10
+    file_log_prefixes:
+    - EXPERIMENT_START
+    - Loading pretrained checkpoint
+    - VAL_SUMMARY
+    - VAL_RSC_THRESH
+    - VAL_PDC_THRESH
   validate_before_train: false
   val_epoch_override: 20
 launcher:
   num_nodes: 1
   gpus_per_node: 6
   experiment_log_dir: exp/count_anything_test_cloc
+  save_config_files: false
   multiprocessing_context: forkserver
 submitit:
   account: null

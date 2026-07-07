@@ -195,6 +195,7 @@ class LoggingConf:
     wandb_writer: Optional[Any] = None
     show_epoch_progress: bool = False
     heartbeat_freq: Optional[int] = None
+    file_log_prefixes: Optional[List[str]] = None
 
 
 class Trainer:
@@ -311,6 +312,7 @@ class Trainer:
             rank=self.rank,
             log_level_primary=self.logging_conf.log_level_primary,
             log_level_secondary=self.logging_conf.log_level_secondary,
+            file_log_prefixes=self.logging_conf.file_log_prefixes,
         )
 
         set_seeds(seed_value, self.max_epochs, self.distributed_rank)

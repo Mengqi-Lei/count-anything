@@ -280,6 +280,25 @@ config/count_anything_test_cloc.yaml
 
 and update the checkpoint path and `paths.val_annotation_file`.
 
+### 7. Single-image Inference
+
+For single-image inference, use:
+
+```python
+from count_anything import CountAnything
+
+model = CountAnything("checkpoints/count_anything.pt")
+results = model("path/to/image.jpg", "text_query")  # e.g., "airplanes"
+print(results[0].count)
+results[0].save()
+```
+
+By default, the visualization image is saved to:
+
+```text
+exp/count_anything_inference/<image>__<query>__<timestamp>/
+```
+
 ## Repository Structure
 
 ```text

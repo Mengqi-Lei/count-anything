@@ -6,4 +6,11 @@ def build_count_anything_model(*args, **kwargs):
 
     return _build(*args, **kwargs)
 
-__all__ = ["build_count_anything_model"]
+
+def CountAnything(*args, **kwargs):
+    from count_anything.inference import CountAnything as _CountAnything
+
+    return _CountAnything(*args, **kwargs)
+
+
+__all__ = ["build_count_anything_model", "CountAnything"]
