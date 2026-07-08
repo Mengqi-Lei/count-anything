@@ -400,7 +400,9 @@ trainer:
             rsc_iom_threshold: 0.5
             use_presence: false
             to_cpu: true
-          detail_records_path: null
+          detail_records_path: exp/count_anything_test_cloc/predictions.json
+          include_points: true
+          include_scores: true
   optim:
     amp:
       enabled: true
@@ -446,14 +448,13 @@ trainer:
       flush_secs: 120
       should_log: false
     wandb_writer: null
-    log_dir: exp/count_anything_test_cloc/logs
+    log_dir: exp/count_anything_test_cloc
     log_freq: 10
     file_log_prefixes:
     - EXPERIMENT_START
     - Loading pretrained checkpoint
     - VAL_SUMMARY
-    - VAL_RSC_THRESH
-    - VAL_PDC_THRESH
+    write_val_stats: false
   validate_before_train: false
   val_epoch_override: 20
 launcher:

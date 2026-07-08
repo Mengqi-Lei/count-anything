@@ -266,10 +266,12 @@ checkpoints/count_anything.pt
 data/annotations/test_split_expanded_by_class.json
 ```
 
-测试日志和预测统计结果默认保存到：
+测试日志和点预测结果默认保存到：
 
 ```text
 exp/count_anything_test_cloc/
+  log.txt
+  predictions.json
 ```
 
 如果需要评估其他 checkpoint 或其他测试集，请修改：
@@ -294,11 +296,13 @@ print(results[0].count)
 results[0].save()
 ```
 
-默认情况下，可视化图片会保存到：
+默认情况下，可视化图片和预测 JSON 会保存到：
 
 ```text
 exp/count_anything_inference/<image>__<query>__<timestamp>/
 ```
+
+保存的图片会叠加预测点和计数标签。JSON 文件会保存每个预测点的位置和置信度。
 
 ## 仓库结构
 

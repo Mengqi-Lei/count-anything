@@ -196,6 +196,7 @@ class LoggingConf:
     show_epoch_progress: bool = False
     heartbeat_freq: Optional[int] = None
     file_log_prefixes: Optional[List[str]] = None
+    write_val_stats: bool = True
 
 
 class Trainer:
@@ -1536,41 +1537,11 @@ class Trainer:
             "VAL_SUMMARY",
             out_dict,
             [
-                ("epoch", "Trainer/epoch"),
-                ("step", "Trainer/steps_val"),
-                ("all_loss", "Losses/val_all_loss"),
-                ("main_weighted_loss", "Losses/val_all_main_weighted_loss"),
-                ("aux_weighted_loss", "Losses/val_all_aux_weighted_loss"),
-                ("batch_scale", "Losses/val_all_batch_scale"),
-                ("sam_is", "Meters_train/val_all/sam_matching_is/is_mean"),
-                ("sam_is_over_gt", "Meters_train/val_all/sam_matching_is/is_over_gt_mean"),
-                ("sam_is_images", "Meters_train/val_all/sam_matching_is/num_images_compared"),
-                ("pdc_cls", "Losses/val_all_loss_pdc_cls", "loss_pdc_cls"),
-                ("pdc_point", "Losses/val_all_loss_pdc_point", "loss_pdc_point"),
-                ("pdc_cls_pos", "Losses/val_all_pdc_cls_pos"),
-                ("pdc_cls_neg", "Losses/val_all_pdc_cls_neg"),
-                (
-                    "pdc_unmatched_gt_before_repair",
-                    "Losses/val_all_pdc_unmatched_gt_before_repair",
-                ),
-                ("rsc_cls", "Losses/val_all_loss_rsc_cls", "loss_rsc_cls"),
-                ("rsc_point", "Losses/val_all_loss_rsc_point", "loss_rsc_point"),
-                ("rsc_box", "Losses/val_all_loss_rsc_box", "loss_rsc_box"),
-                ("rsc_giou", "Losses/val_all_loss_rsc_giou", "loss_rsc_giou"),
-                ("ce", "Losses/val_all_loss_ce", "loss_ce"),
-                ("point", "Losses/val_all_loss_point", "loss_point"),
-                ("bbox", "Losses/val_all_loss_bbox", "loss_bbox"),
-                ("giou", "Losses/val_all_loss_giou", "loss_giou"),
-                ("presence", "Losses/val_all_presence_loss", "presence_loss"),
                 ("mae", "Meters_train/val_all/counting/mae"),
                 ("mse", "Meters_train/val_all/counting/mse"),
                 ("gt_avg", "Meters_train/val_all/counting/gt_count_avg"),
                 ("rsc_avg", "Meters_train/val_all/counting/rsc_count_avg"),
                 ("pdc_pred_avg", "Meters_train/val_all/counting/pdc_count_avg"),
-                ("pdc_score_max", "Meters_train/val_all/counting/pdc_score_max"),
-                ("pdc_score_min", "Meters_train/val_all/counting/pdc_score_min"),
-                ("pdc_score_mean", "Meters_train/val_all/counting/pdc_score_mean"),
-                ("pdc_score_median", "Meters_train/val_all/counting/pdc_score_median"),
                 ("rsc_mae", "Meters_train/val_all/counting/rsc_count_mae"),
                 ("rsc_mse", "Meters_train/val_all/counting/rsc_count_mse"),
                 ("pdc_mae", "Meters_train/val_all/counting/pdc_count_mae"),
@@ -2281,7 +2252,7 @@ class Trainer:
         gc.collect()
         self.logger.log_dict(outs, self.epoch)  # Logged only on rank 0
 
-        if self.distributed_rank == 0:
+        if self.distributed_rank == 0 and self.logging_conf.write_val_stats:
             with g_pathmgr.open(
                 os.path.join(self.logging_conf.log_dir, "val_stats.json"),
                 "a",
@@ -2416,20 +2387,6 @@ class Trainer:
         self._reset_meters(curr_phases)
         self._emit_log_blank_line()
         logging.info(self._get_val_summary_line(out_dict))
-        logging.info(
-            self._get_threshold_sweep_summary_line(
-                out_dict,
-                branch_name="VAL_RSC_THRESH",
-                metric_prefix="rsc_count",
-            )
-        )
-        logging.info(
-            self._get_threshold_sweep_summary_line(
-                out_dict,
-                branch_name="VAL_PDC_THRESH",
-                metric_prefix="pdc_count",
-            )
-        )
         r_topk_line = self._get_point_soft_ce_r_topk_line(out_dict, phase="val")
         if r_topk_line is not None:
             logging.info(r_topk_line)
