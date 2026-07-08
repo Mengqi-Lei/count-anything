@@ -274,18 +274,19 @@ def main(args) -> None:
 
     add_pythonpath_to_sys_path()
     makedir(cfg.launcher.experiment_log_dir)
-    with g_pathmgr.open(
-        os.path.join(cfg.launcher.experiment_log_dir, "config.yaml"), "w"
-    ) as f:
-        f.write(OmegaConf.to_yaml(cfg))
+    if cfg.launcher.get("save_config_files", True):
+        with g_pathmgr.open(
+            os.path.join(cfg.launcher.experiment_log_dir, "config.yaml"), "w"
+        ) as f:
+            f.write(OmegaConf.to_yaml(cfg))
 
-    cfg_resolved = OmegaConf.to_container(cfg, resolve=False)
-    cfg_resolved = OmegaConf.create(cfg_resolved)
+        cfg_resolved = OmegaConf.to_container(cfg, resolve=False)
+        cfg_resolved = OmegaConf.create(cfg_resolved)
 
-    with g_pathmgr.open(
-        os.path.join(cfg.launcher.experiment_log_dir, "config_resolved.yaml"), "w"
-    ) as f:
-        f.write(OmegaConf.to_yaml(cfg_resolved, resolve=True))
+        with g_pathmgr.open(
+            os.path.join(cfg.launcher.experiment_log_dir, "config_resolved.yaml"), "w"
+        ) as f:
+            f.write(OmegaConf.to_yaml(cfg_resolved, resolve=True))
 
     submitit_conf = cfg.get("submitit", None)
     assert submitit_conf is not None, "Missing submitit config"

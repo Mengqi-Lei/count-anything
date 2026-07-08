@@ -23,16 +23,46 @@ class CountingMeter:
         postprocessor,
         gather_pred_via_filesys: bool = False,
         detail_records_path: str = None,
+        include_points: bool = False,
+        include_scores: bool = False,
         deduplicate_by_image_id: bool = True,
         expected_num_records: int = None,
     ) -> None:
         self.postprocessor = postprocessor
         self.gather_pred_via_filesys = bool(gather_pred_via_filesys)
         self.detail_records_path = detail_records_path
+        self.include_points = bool(include_points)
+        self.include_scores = bool(include_scores)
         self.deduplicate_by_image_id = bool(deduplicate_by_image_id)
         self.expected_num_records = expected_num_records
         self.is_better = lambda cur, best: cur < best
         self.reset()
+
+    @staticmethod
+    def _format_points(points, scores=None) -> List[Dict[str, float]]:
+        if scores is None:
+            scores = [None] * len(points)
+        formatted = []
+        for point, score in zip(points, scores):
+            item = {
+                "x": float(point[0]),
+                "y": float(point[1]),
+            }
+            if score is not None:
+                item["score"] = float(score)
+            formatted.append(item)
+        return formatted
+
+    def _make_prediction_record(self, record: Dict) -> Dict:
+        return {
+            "image_id": record["image_id"],
+            "gt_count": record["gt_count"],
+            "pred_count": record["pred_count"],
+            "points": self._format_points(
+                record.get("pred_points", []),
+                record.get("pred_scores") if self.include_scores else None,
+            ),
+        }
 
     def reset(self):
         self.records = {} if self.deduplicate_by_image_id else []
@@ -93,6 +123,14 @@ class CountingMeter:
                     "pdc_score_median": float(pred["pdc_score_median"]),
                     "pdc_top60_scores": list(pred["pdc_top60_scores"]),
                 }
+                if self.include_points:
+                    record["pred_points"] = (
+                        pred["pred_count_points"].detach().cpu().tolist()
+                    )
+                if self.include_scores:
+                    record["pred_scores"] = (
+                        pred["pred_count_scores"].detach().cpu().tolist()
+                    )
                 if self.deduplicate_by_image_id:
                     self.records[int(image_id)] = record
                 else:
@@ -277,12 +315,22 @@ class CountingMeter:
                 if sort_key is not None
                 else merged_record_list
             )
+            payload = (
+                {
+                    "predictions": [
+                        self._make_prediction_record(record)
+                        for record in records_to_dump
+                    ]
+                }
+                if self.include_points
+                else {
+                    "metrics": out,
+                    "records": records_to_dump,
+                }
+            )
             with open(self.detail_records_path, "w", encoding="utf-8") as f:
                 json.dump(
-                    {
-                        "metrics": out,
-                        "records": records_to_dump,
-                    },
+                    payload,
                     f,
                     ensure_ascii=False,
                     indent=2,

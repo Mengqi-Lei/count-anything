@@ -266,10 +266,12 @@ and evaluates on the CLOC test split:
 data/annotations/test_split_expanded_by_class.json
 ```
 
-Evaluation logs and prediction statistics are saved by default to:
+Evaluation logs and point predictions are saved by default to:
 
 ```text
 exp/count_anything_test_cloc/
+  log.txt
+  predictions.json
 ```
 
 To evaluate another checkpoint or another test set, edit:
@@ -279,6 +281,27 @@ config/count_anything_test_cloc.yaml
 ```
 
 and update the checkpoint path and `paths.val_annotation_file`.
+
+### 7. Single-image Inference
+
+For single-image inference, use:
+
+```python
+from count_anything import CountAnything
+
+model = CountAnything("checkpoints/count_anything.pt")
+results = model("path/to/image.jpg", "text_query")  # e.g., "airplanes"
+print(results[0].count)
+results[0].save()
+```
+
+By default, the visualization image and prediction JSON are saved to:
+
+```text
+exp/count_anything_inference/<image>__<query>__<timestamp>/
+```
+
+The saved image overlays the predicted points and count label. The JSON file stores each predicted point position and confidence score.
 
 ## Repository Structure
 

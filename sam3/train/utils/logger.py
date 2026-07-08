@@ -8,7 +8,7 @@ import logging
 import sys
 import uuid
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional, Sequence, Union
 
 from hydra.utils import instantiate
 
@@ -173,6 +173,15 @@ class Logger:
             self.tb_logger.log_hparams(hparams, meters)
 
 
+class PrefixLogFilter(logging.Filter):
+    def __init__(self, prefixes: Sequence[str]):
+        super().__init__()
+        self.prefixes = tuple(prefixes)
+
+    def filter(self, record):
+        return record.getMessage().startswith(self.prefixes)
+
+
 # cache the opened file object, so that different calls to `setup_logger`
 # with the same file name can safely write to the same file.
 @functools.lru_cache(maxsize=None)
@@ -191,6 +200,7 @@ def setup_logging(
     rank=0,
     log_level_primary="INFO",
     log_level_secondary="ERROR",
+    file_log_prefixes=None,
 ):
     """
     Setup various logging streams: stdout and file handlers.
@@ -230,6 +240,8 @@ def setup_logging(
         file_handler = logging.StreamHandler(_cached_log_stream(log_filename))
         file_handler.setLevel(log_level_primary)
         file_handler.setFormatter(formatter)
+        if file_log_prefixes:
+            file_handler.addFilter(PrefixLogFilter(file_log_prefixes))
         logger.addHandler(file_handler)
 
     logging.root = logger
