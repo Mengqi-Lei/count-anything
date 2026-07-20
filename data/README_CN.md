@@ -13,7 +13,7 @@
 
 我们发布了 CLOC-v1.1 标注更新。主数据集仍为 CLOC。在 CLOC-v1.1 中，我们对部分 CLOC 标注进行了人工复查；对于人工确认存在漏标、错标或明显标注噪声的标注记录，我们进行了移除或重新标注，以减少标注噪声。更新后的标注包为 `cloc_annotations_v1.1.zip`，已添加到下方原有的 Google Drive 和百度网盘下载链接中，可通过同一组链接下载。如需使用 CLOC-v1.1 标注，请下载 `cloc_annotations_v1.1.zip` 替代 `cloc_annotations.zip`；增强图片包和源图片准备流程保持不变。
 
-另外，我们在CLOC-v1.1上重新评估了所有的模型，结果有轻微改变，但整体排名和CLOC-v1版本的几乎一致。具体结果如下表所示。
+另外，我们在 CLOC-v1.1 上重新评估了所有模型，并在对比中加入了 [LocateAnything-3B](https://huggingface.co/nvidia/LocateAnything-3B)。相比该模型，Count Anything 在完整测试集和全部六个领域的计数性能上依旧保持显著领先。更新后的结果如下表所示。
 
 <p align="center">
   <img src="../assets/readme/cloc_v1_1_main_results_table.png" alt="CLOC-v1.1 对比表" width="100%">

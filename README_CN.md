@@ -28,6 +28,7 @@
 
 ## News
 
+- **2026-07-20:** 📊 我们新增了 [LocateAnything-3B](https://huggingface.co/nvidia/LocateAnything-3B) 在 [CLOC-v1.1](data/README_CN.md#cloc-v11-released) 上的评测结果。相比该模型，Count Anything 在完整测试集和全部六个领域的计数性能上依旧保持显著领先。
 - **2026-07-02:** 🔥 我们发布了 [CLOC-v1.1](data/README_CN.md#cloc-v11-released) 标注更新。具体来说，我们对CLOC Test集标注进行了更细致的人工审查，删除或重新标注了少量具有明显噪声的样本，以提供更准确的计数性能评估。
 - **2026-05-29:** 📄 论文已发布于 arXiv：[Count Anything](https://arxiv.org/abs/2605.30846)。
 
@@ -56,6 +57,14 @@
 Count Anything 在 CLOC 上进行训练与评估。CLOC 包含约 22 万张图像、619 个类别和 1500 万个目标实例。大量实验表明，Count Anything 具备较强的计数准确性和多域泛化能力，并显著优于现有开放世界计数方法。
 
 ## 主要结果
+
+### CLOC-v1.1
+
+更新后的 CLOC-v1.1 评测加入了 [LocateAnything-3B](https://huggingface.co/nvidia/LocateAnything-3B)。该模型是近期提出的视觉语言定位模型，支持开放集合目标检测以及复杂场景中的密集多目标检测。Count Anything 在完整测试集和全部六个领域的计数性能上均保持显著领先。
+
+![包含 LocateAnything-3B 的 CLOC-v1.1 结果对比表](assets/readme/cloc_v1_1_main_results_table.png)
+
+### CLOC
 
 ![论文中的 CLOC 主要结果对比表](assets/readme/main_results_cloc_table.jpg)
 

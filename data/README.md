@@ -13,7 +13,7 @@ This document explains how to prepare the complete CLOC dataset. We provide all 
 
 We have released the CLOC-v1.1 annotation update. The primary dataset release remains CLOC. In CLOC-v1.1, we manually rechecked part of the CLOC annotations. For annotation records manually confirmed to contain missing labels, incorrect labels, or obvious annotation noise, we removed the affected records or relabeled them to reduce annotation noise. The updated annotation archive is `cloc_annotations_v1.1.zip`; it has been added to the same Google Drive and Baidu Netdisk folders listed below, so it can be downloaded from the same links. To use CLOC-v1.1 annotations, download `cloc_annotations_v1.1.zip` in place of `cloc_annotations.zip`; the augmented-image archive and source-image preparation workflow remain unchanged.
 
-In addition, we re-evaluated all the models on CLOC-v1.1. There are slight changes in the results, but the overall ranking is almost the same as that of the CLOC-v1 version. The specific results are shown in the following table.
+In addition, we re-evaluated all the models on CLOC-v1.1 and added [LocateAnything-3B](https://huggingface.co/nvidia/LocateAnything-3B) to the comparison. Count Anything continues to substantially outperform it in counting performance on the full test set and across all six domains. The updated results are shown below.
 
 <p align="center">
   <img src="../assets/readme/cloc_v1_1_main_results_table.png" alt="CLOC-v1.1 comparison table" width="100%">

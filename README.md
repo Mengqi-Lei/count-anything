@@ -28,6 +28,7 @@
 
 ## News
 
+- **2026-07-20:** 📊 We added the evaluation results of [LocateAnything-3B](https://huggingface.co/nvidia/LocateAnything-3B) on [CLOC-v1.1](data/README.md#cloc-v11-released). Count Anything continues to substantially outperform it in counting performance across the full test set and all six domains.
 - **2026-07-02:** 🔥 [CLOC-v1.1](data/README.md#cloc-v11-released) is released. Specifically, we conducted a more meticulous manual review of the CLOC Test set annotations, removing or re-annotating a small number of samples with obvious noise to provide a more accurate evaluation of counting performance.
 - **2026-05-29:** 📄 Our paper is available on arXiv: [Count Anything](https://arxiv.org/abs/2605.30846).
 
@@ -56,6 +57,14 @@ This repository introduces **Count Anything**, a generalist model for text-guide
 Count Anything is trained and evaluated on CLOC, which contains about 220K images, 619 categories, and 15M object instances. Extensive experiments show that Count Anything achieves strong counting accuracy and multi-domain generalization, substantially outperforming existing open-world counting methods.
 
 ## Main Results
+
+### CLOC-v1.1
+
+The updated CLOC-v1.1 evaluation includes [LocateAnything-3B](https://huggingface.co/nvidia/LocateAnything-3B), a recent vision-language grounding model supporting open-set and dense multi-object detection in cluttered scenes. Count Anything maintains a substantial lead in counting performance on the full test set and across all six domains.
+
+![CLOC-v1.1 comparison table including LocateAnything-3B](assets/readme/cloc_v1_1_main_results_table.png)
+
+### CLOC
 
 ![Main CLOC comparison table from the paper](assets/readme/main_results_cloc_table.jpg)
 
