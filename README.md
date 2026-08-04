@@ -1,7 +1,7 @@
 <h1 align="center">Count Anything</h1>
 
 <p align="center">
-  <strong>Text-guided object counting across domains with instance-grounded point predictions</strong>
+  <strong>A generalist model for text-guided object counting across domains</strong>
 </p>
 
 <p align="center">
