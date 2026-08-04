@@ -1,7 +1,7 @@
 <h1 align="center">Count Anything</h1>
 
 <p align="center">
-  <strong>面向跨域文本引导目标计数的通用模型，以实例点集输出可解释计数结果</strong>
+  <strong>文本引导的跨域目标计数通用模型</strong>
 </p>
 
 <p align="center">
