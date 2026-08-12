@@ -22,6 +22,8 @@
   <img src="assets/readme/count_anything_poster.jpg" alt="Count Anything 海报图" width="100%">
 </p>
 
+https://github.com/user-attachments/assets/1966bfe8-d530-494d-b073-c6d2318e1af4
+
 <p align="center">
   <strong>✨Play with the demo: <a href="https://huggingface.co/spaces/MengqiLei/count-anything-demo">🔗Huggingface Demo</a></strong>
 </p>
